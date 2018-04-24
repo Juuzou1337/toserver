@@ -1,32 +1,34 @@
 package com.example.user.to.server.controller;
 
 import com.example.user.to.server.entity.Application;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.user.to.server.repository.ApplicationRepository;
+import com.example.user.to.server.service.ApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/application")
 public class ApplicationController {
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @Autowired
+    private ApplicationService service;
+
+    @RequestMapping(value = "/applications", method = RequestMethod.GET)
     @ResponseBody
-    public Application getApplication(){
-        return createMockApp();
+    public List <Application> getApplications(){
+        return service.getAll();
     }
 
-    private Application createMockApp() {
-        Application application = new Application();
-        application.setId(1);
-        application.setTitle("Свет");
-        application.setDescription("Не работают лампочки");
-        application.setApplicationDate(new Date());
-        application.setStatus(1);
-        application.setIdUser(1);
-        return application;
+    @RequestMapping(value = "/applications/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Application getApplication(@PathVariable("id") long id){
+        return service.getById(id);
+    }
+
+    @RequestMapping(value = "/applications", method = RequestMethod.POST)
+    @ResponseBody
+    public Application saveApplication(@RequestBody Application application){
+        return service.save(application);
     }
 }

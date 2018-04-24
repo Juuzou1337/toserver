@@ -86,7 +86,6 @@ public class Application {
     public int getIdPersonal() {
         return idPersonal;
     }
-
     public void setIdPersonal(int idPersonal) {
         this.idPersonal = idPersonal;
     }
