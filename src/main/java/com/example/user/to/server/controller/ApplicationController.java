@@ -1,7 +1,6 @@
 package com.example.user.to.server.controller;
 
 import com.example.user.to.server.entity.Application;
-import com.example.user.to.server.repository.ApplicationRepository;
 import com.example.user.to.server.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class ApplicationController {
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/applications", method = RequestMethod.POST)
+    @RequestMapping(value = "/applications_add", method = RequestMethod.POST)
     @ResponseBody
     public Application saveApplication(@RequestBody Application application){
         return service.save(application);
